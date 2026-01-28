@@ -7,8 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=production",
     "dev": "webpack serve --mode=development",
-    "lint:check": "prettier --check .",
-    "lint:fix": "prettier --write .",
+    "prettier:check": "prettier --check .",
+    "prettier:fix": "prettier --write .",
+    "eslint:check": "eslint src",
+    "eslint:fix": "eslint src --fix",
+    "prli:check": "npm run eslint:check && npm run prettier:check",
+    "prli:fix": "npm run eslint:fix && npm run prettier:fix",
     "prepare": "husky install"
   },
   "repository": {
@@ -25,6 +29,9 @@
   "homepage": "https://github.com/kapehuh/gitActs#readme",
   "devDependencies": {
     "css-loader": "^7.1.2",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.2.0",
     "prettier": "3.8.1",
     "style-loader": "^4.0.0",
     "webpack": "^5.104.1",
@@ -35,6 +42,6 @@
     "html-webpack-plugin": "^5.6.6"
   },
   "lint-staged": {
-    "*.{js,css,md, yml, html}": "prettier --write"
+    "*.{js,css,md, yml, html}": ["eslint --fix", "prettier --write"]
   }
 }
