@@ -14,7 +14,7 @@
     "eslint:fix": "eslint src --fix",
     "prli:check": "npm run eslint:check && npm run prettier:check",
     "prli:fix": "npm run eslint:fix && npm run prettier:fix",
-    "prepare": "husky install"
+    "prepare": "node -e \"if (process.env.CI !== 'true') require('husky').install()\""
   },
   "repository": {
     "type": "git",
