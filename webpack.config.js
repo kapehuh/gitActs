@@ -1,8 +1,8 @@
 //const { resolve } = require('dns');
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { type } = require('os');
-const { resolve } = require('dns');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { type } = require("os");
+const { resolve } = require("dns");
 
 module.exports = {
   entry: "./src/index.js",
@@ -12,28 +12,28 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, 'public'),
+      directory: path.join(__dirname, "public"),
     },
     port: 9000,
   },
   module: {
-    rules:[
+    rules: [
       {
         test: /\.js$/,
-        type: 'javascript/auto',
+        type: "javascript/auto",
         resolve: {
-          fullySpecified: false
-        }
+          fullySpecified: false,
+        },
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
-        type: 'javascript/auto',
-      }
-    ]
+        use: ["style-loader", "css-loader"],
+        type: "javascript/auto",
+      },
+    ],
   },
   experiments: {
-    topLevelAwait: true
+    topLevelAwait: true,
   },
-  plugins: [new HtmlWebpackPlugin()]
+  plugins: [new HtmlWebpackPlugin()],
 };
