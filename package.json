@@ -1,0 +1,58 @@
+{
+  "name": "gitacts",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "webpack --mode=production",
+    "dev": "webpack serve --mode=development",
+    "prettier:check": "prettier --check .",
+    "prettier:fix": "prettier --write .",
+    "eslint:check": "eslint src",
+    "eslint:fix": "eslint src --fix",
+    "prli:check": "npm run eslint:check && npm run prettier:check",
+    "prli:fix": "npm run eslint:fix && npm run prettier:fix",
+    "prepare": "node -e \"if (process.env.CI !== 'true') require('husky').install()\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kapehuh/gitActs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kapehuh/gitActs/issues"
+  },
+  "homepage": "https://github.com/kapehuh/gitActs#readme",
+  "devDependencies": {
+    "@babel/core": "^7.28.6",
+    "@babel/preset-env": "^7.28.6",
+    "@types/jest": "^30.0.0",
+    "babel-jest": "^30.2.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "prettier": "3.8.1",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.104.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.3"
+  },
+  "dependencies": {
+    "html-webpack-plugin": "^5.6.6"
+  },
+  "lint-staged": {
+    "*.{js,css,md, yml, html}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}
