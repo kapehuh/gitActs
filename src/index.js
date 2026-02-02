@@ -1,15 +1,14 @@
 // Импорт стилей
 import "./styles/main.css";
 // Импорт модулей (заготовки)
-import { fetchWeather } from "./modules/api.js";
+import { fetchWeather, fetchForecast } from "./modules/api.js";
 import { updateUI, showError } from "./modules/ui.js";
-import { formatDate } from "./modules/utils.js";
-// DOM-элементы
+import { processForecastData } from "./modules/utils.js";
+
+console.debug("[Weather App] Main module loaded");
+
 const cityInput = document.getElementById("city-input");
 const searchBtn = document.getElementById("search-btn");
-const cityNameEl = document.getElementById("city-name");
-const currentTempEl = document.getElementById("current-temp");
-
 // Начальные данные для примера (замените на вызов API)
 const defaultCity = "Moscow";
 
@@ -17,62 +16,53 @@ const defaultCity = "Moscow";
  * Основная функция инициализации приложения
  */
 function initApp() {
+  console.debug("[Weather App] initApp called");
   // Загружаем погоду для города по умолчанию
   loadWeatherData(defaultCity);
 
-  // Обработчик кнопки поиска
-  searchBtn.addEventListener("click", () => {
-    const city = cityInput.value.trim();
-    if (city) {
-      loadWeatherData(city);
-      cityInput.value = ""; // Очищаем поле ввода
-    }
-  });
-
-  // Поиск по нажатию Enter
-  cityInput.addEventListener("keyup", (event) => {
-    if (event.key === "Enter") {
-      searchBtn.click();
-    }
+  searchBtn.addEventListener("click", handleSearch);
+  cityInput.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") handleSearch();
   });
 }
 
-/**
- * Загружает данные о погоде и обновляет интерфейс
- * @param {string} city - Название города
- */
-async function loadWeatherData(city) {
-  try {
-    // Временная заглушка (замените на реальный вызов API)
-    const mockData = {
-      city: city,
-      temperature: 15,
-      feelsLike: 14,
-      humidity: 65,
-      windSpeed: 12,
-      forecast: [
-        { day: "Mon", temp: 16 },
-        { day: "Tue", temp: 18 },
-        { day: "Wed", temp: 14 },
-        { day: "Thu", temp: 12 },
-        { day: "Fri", temp: 17 },
-      ],
-    };
-
-    // Обновляем интерфейс с мок-данными
-    updateUI(mockData);
-    //console.log(`Weather data loaded for ${city}`); // Для отладки
-  } catch (error) {
-    showError("Failed to load weather data. Please try again.");
-    //console.error('Error loading weather:', error);
+async function handleSearch() {
+  const city = cityInput.value.trim();
+  if (city) {
+    await loadWeatherData(city);
+    cityInput.value = "";
   }
 }
 
-// Инициализация приложения после загрузки DOM
-document.addEventListener("DOMContentLoaded", initApp);
+async function loadWeatherData(city) {
+  try {
+    console.debug("[Weather App] Starting to load weather for:", city);
+    // Параллельно запрашиваем текущую погоду и прогноз
+    const [currentData, forecastData] = await Promise.all([
+      fetchWeather(city),
+      fetchForecast(city),
+    ]);
 
-// Экспорты для возможного тестирования
-export { initApp, loadWeatherData };
+    // Формируем объект для UI
+    const weatherData = {
+      city: currentData.name,
+      temperature: currentData.main.temp,
+      feelsLike: currentData.main.feels_like,
+      humidity: currentData.main.humidity,
+      windSpeed: currentData.wind.speed,
+      forecast: processForecastData(forecastData),
+    };
 
-// import { initApp } from "./initApp";
-// initApp(document.body);
+    console.debug("[Weather App] Processed data:", weatherData);
+    updateUI(weatherData);
+    console.debug("[Weather App] UI updated successfully");
+  } catch (error) {
+    console.error("Ошибка загрузки погоды:", error);
+    showError(error.message);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.debug("[Weather App] DOM fully loaded");
+  initApp();
+});

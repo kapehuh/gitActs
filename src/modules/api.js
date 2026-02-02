@@ -4,8 +4,9 @@
  * @see https://openweathermap.org/api
  */
 
-const API_KEY = "YOUR_API_KEY"; // Получите на openweathermap.org
-const BASE_URL = "https://api.openweathermap.org/data/2.5";
+import { API_KEY, BASE_URL } from "/src/config.js";
+//const API_KEY = "97d93f1704dcb8e35dd2045c8e75710d"; // Получите на openweathermap.org
+//const BASE_URL = "https://api.openweathermap.org/data/2.5";
 
 /**
  * Запрашивает текущую погоду для указанного города
@@ -13,9 +14,17 @@ const BASE_URL = "https://api.openweathermap.org/data/2.5";
  * @returns {Promise<object>} Данные о погоде
  */
 export async function fetchWeather(city) {
-  // Заглушка для будущей реализации
-  //console.log(`[API] Fetching weather for ${city}`);
-  throw new Error("API module not implemented yet");
+  const url = `${BASE_URL}/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric&lang=en`;
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    // Если API вернуло ошибку (например, город не найден)
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(
+      errorData.message || `HTTP error! status: ${response.status}`,
+    );
+  }
+  return response.json();
 }
 
 /**

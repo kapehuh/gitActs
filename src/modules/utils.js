@@ -1,38 +1,31 @@
 /**
- * Вспомогательные функции
+ * Преобразует сырые данные прогноза API в удобный формат для UI
+ * @param {object} forecastData - Ответ от endpoint /forecast.
+ * @returns {Array} Массив объектов прогноза на 5 дней.
  */
+export function processForecastData(forecastData) {
+  // API возвращает прогноз с интервалом 3 часа на 5 дней (40 записей).
+  // Нам нужно по одной записи на день (например, на 12:00).
+  const dailyForecast = [];
+  const seenDays = new Set();
 
-/**
- * Форматирует дату в читаемый вид
- * @param {Date|string} date - Дата для форматирования
- * @returns {string} Отформатированная дата
- */
-export function formatDate(date) {
-  const d = new Date(date);
-  return d.toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  });
-}
+  for (const item of forecastData.list) {
+    const date = new Date(item.dt * 1000);
+    const dayKey = date.toDateString(); // Уникальный ключ дня
 
-/**
- * Конвертирует температуру из Кельвинов в Цельсии
- * @param {number} kelvin - Температура в Кельвинах
- * @returns {number} Температура в Цельсиях
- */
-export function kelvinToCelsius(kelvin) {
-  return Math.round(kelvin - 273.15);
-}
-
-/**
- * Обрабатывает ошибки fetch-запросов
- * @param {Response} response - Ответ от сервера
- * @returns {Promise} Промис с данными или ошибкой
- */
-export function handleResponse(response) {
-  if (!response.ok) {
-    throw new Error(`HTTP error! Status: ${response.status}`);
+    // Берем запись, которая примерно в середине дня (12:00-15:00)
+    if (
+      !seenDays.has(dayKey) &&
+      date.getHours() >= 12 &&
+      date.getHours() <= 15
+    ) {
+      dailyForecast.push({
+        day: date.toLocaleDateString("en-US", { weekday: "short" }), // 'Mon', 'Tue'
+        temp: item.main.temp,
+      });
+      seenDays.add(dayKey);
+    }
+    if (dailyForecast.length >= 5) break; // Нужно 5 дней
   }
-  return response.json();
+  return dailyForecast;
 }
