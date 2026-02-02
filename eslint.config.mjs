@@ -10,7 +10,10 @@ export default defineConfig([
       ecmaVersion: "latest",
       globals: { ...globals.browser },
     },
-    rules: { "no-console": "warn", "no-console": [ 'warn', { allow: ['warn', 'error', 'debug']} ]},
+    rules: {
+      "no-console": "warn",
+      "no-console": ["warn", { allow: ["warn", "error", "debug"] }],
+    },
     rules: { "no-unused-vars": "off" },
   },
   {
