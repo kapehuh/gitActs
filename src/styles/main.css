@@ -1,0 +1,204 @@
+/* .initApp {
+  font-size: 32px;
+  color: blueviolet;
+  background-color: darkorange;
+} */
+
+/* Базовые сбросы и box-sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  padding: 20px;
+  color: #333;
+}
+
+/* Контейнер приложения */
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Карточки */
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+}
+
+/* Шапка */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  color: #2d3748;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+#city-input {
+  flex-grow: 1;
+  padding: 15px 20px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  transition: border-color 0.3s;
+}
+
+#city-input:focus {
+  outline: none;
+  border-color: #4299e1;
+}
+
+#search-btn {
+  padding: 15px 30px;
+  background: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#search-btn:hover {
+  background: #3182ce;
+}
+
+/* Текущая погода */
+.current-weather h2 {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  color: #4a5568;
+}
+
+.weather-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.temperature {
+  font-size: 5rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.temperature sup {
+  font-size: 2.5rem;
+  vertical-align: super;
+}
+
+.weather-details p {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #4a5568;
+}
+
+.weather-details span {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+/* Прогноз */
+.forecast h2 {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  color: #4a5568;
+}
+
+.forecast-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.forecast-day {
+  background: #f7fafc;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+}
+
+.forecast-day .day {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #4a5568;
+}
+
+.forecast-day .temp {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.placeholder {
+  text-align: center;
+  color: #a0aec0;
+  font-style: italic;
+  grid-column: 1 / -1;
+  padding: 40px;
+}
+
+/* Подвал */
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  color: #718096;
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: #4299e1;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2.2rem;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  .weather-display {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .temperature {
+    font-size: 4rem;
+  }
+
+  .forecast-container {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
