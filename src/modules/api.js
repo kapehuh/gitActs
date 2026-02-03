@@ -14,7 +14,8 @@ import { API_KEY, BASE_URL } from "/src/config.js";
  * @returns {Promise<object>} Данные о погоде
  */
 export async function fetchWeather(city) {
-  const url = `${BASE_URL}/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric&lang=en`;
+  //const url = `${BASE_URL}/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric&lang=en`;
+  const url = `${BASE_URL}`;
   const response = await fetch(url);
 
   if (!response.ok) {
