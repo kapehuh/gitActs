@@ -100,7 +100,6 @@ async function initApp() {
 
 /**
  * Загружает данные о погоде и обновляет интерфейс
- * @param {string} city - Название города
  */
 async function loadWeatherData(city) {
   try {
