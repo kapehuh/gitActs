@@ -89,9 +89,6 @@ async function initApp() {
       default:
         break;
     }
-    // if (city) {
-    //     loadWeatherData(city);
-    // }
   });
 
   // Поиск по нажатию Enter
