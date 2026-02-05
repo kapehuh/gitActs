@@ -2,7 +2,6 @@
 import "./styles/index.css";
 
 // Импорт модулей (заготовки)
-//import { fetchWeather } from './modules/api.js';
 import { updateUI, showError } from "./modules/ui.js";
 // DOM-элементы
 const cityInput = document.getElementById("city-input");
