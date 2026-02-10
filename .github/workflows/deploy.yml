@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ] # Запускать при пуше в ветку main
+    branches: [main] # Запускать при пуше в ветку main
 
 jobs:
   deploy:
@@ -22,7 +22,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Указываем путь к вашей папке с сайтом
-          path: './src'
+          path: "./src"
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
