@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Weather App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script defer="defer" src="main.a0d9777b839d73ce9933.js"></script>
+  </head>
+  <body>
+    <div id="app" class="app">
+      <header class="header">
+        <h1>🌤 Weather Forecast</h1>
+        <form id="search-box" class="search-form">
+          <input id="city-input" placeholder="Введите город..." required />
+          <button id="search-btn" type="submit">Найти</button>
+        </form>
+      </header>
+      <main class="main-content">
+        <section class="current-weather card">
+          <h2>Current Weather in <span id="city-name">-</span></h2>
+          <div class="weather-display">
+            <div class="temperature">
+              <span id="current-temp">-</span><sup>°C</sup>
+            </div>
+            <div class="weather-details">
+              <p>Feels like: <span id="feels-like">-</span>°C</p>
+              <p>Humidity: <span id="humidity">-</span>%</p>
+              <p>Wind: <span id="wind-speed">-</span> km/h</p>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="footer">
+        <p>
+          Powered by
+          <a href="https://ya.ru" target="_blank">YandexWeather API</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
