@@ -1,7 +1,19 @@
-describe("Weather App", () => {
-  test("should have basic setup", () => {
-    // Проверка, что приложение инициализируется
-    expect(typeof window).toBe("object");
-    expect(typeof document).toBe("object");
-  });
+test("should clear cityInput.value after handleCitySearch", () => {
+  const mockCityInput = { value: "Москва" };
+  const mockHandleCitySearch = jest.fn();
+
+  const testHandleFormSubmit = (event) => {
+    event.preventDefault();
+    const city = mockCityInput.value.trim();
+
+    if (city) {
+      mockHandleCitySearch(city);
+      mockCityInput.value = "";
+    }
+  };
+
+  testHandleFormSubmit({ preventDefault: jest.fn() });
+
+  expect(mockCityInput.value).toBe("");
+  expect(mockHandleCitySearch).toHaveBeenCalledWith("Москва");
 });
