@@ -17,10 +17,10 @@
     <div id="app" class="app">
       <header class="header">
         <h1>🌤 Weather Forecast</h1>
-        <div class="search-box">
-          <input type="text" id="city-input" placeholder="Enter city name..." />
-          <button id="search-btn">Search</button>
-        </div>
+        <form id="search-box" class="search-form">
+        <input id="city-input" type="text" placeholder="Введите город..." required>
+        <button id="search-btn" type="submit">Найти</button>
+      </form>
       </header>
 
       <main class="main-content">
@@ -40,13 +40,13 @@
         </section>
 
         <!-- Блок с прогнозом на 5 дней -->
-        <section class="forecast card">
+        <!-- <section class="forecast card">
           <h2>5-Day Forecast</h2>
-          <div id="forecast-container" class="forecast-container">
+          <div id="forecast-container" class="forecast-container"> -->
             <!-- Прогноз будет вставлен с помощью JavaScript -->
-            <p class="placeholder">Forecast data will appear here...</p>
+            <!-- <p class="placeholder">Forecast data will appear here...</p>
           </div>
-        </section>
+        </section> -->
       </main>
 
       <footer class="footer">

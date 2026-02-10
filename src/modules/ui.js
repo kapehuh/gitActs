@@ -4,14 +4,6 @@
  * @param {object} data - Данные о погоде
  */
 export function updateUI(weatherData) {
-  //console.log('Структура данных:', weatherData);
-  //console.log('Все ключи:', Object.keys(weatherData));
-
-  //const currentTemp = weatherData.fact?.temp;
-  //console.log(currentTemp);
-
-  //exploreObject(weatherData);
-
   document.getElementById("city-name").textContent =
     weatherData.info?.tzinfo?.name;
   document.getElementById("current-temp").textContent = Math.round(
@@ -35,7 +27,6 @@ export function updateUI(weatherData) {
 export function showError(message) {
   alert(`Error: ${message}`); // Временное решение
   console.error("[UI] Error:", message);
-  // TODO: Реализовать красивый вывод ошибок в интерфейсе
 }
 
 /**
@@ -46,12 +37,3 @@ export function showError(message) {
 export function frhgToCelsius(frgh) {
   return (frgh - 32) / 1.8;
 }
-
-// function exploreObject(obj, indent = '') {
-//     for (let key in obj) {
-//         console.log(indent + key + ':', typeof obj[key]);
-//         if (typeof obj[key] === 'object' && obj[key] !== null) {
-//             exploreObject(obj[key], indent + '  ');
-//         }
-//     }
-// }

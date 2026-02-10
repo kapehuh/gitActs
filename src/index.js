@@ -6,6 +6,7 @@ import { updateUI, showError } from "./modules/ui.js";
 // DOM-элементы
 const cityInput = document.getElementById("city-input");
 const searchBtn = document.getElementById("search-btn");
+const searchForm = document.getElementById("search-box");
 
 const defaultCityAmsterdam = {
   lat: "52.3730796",
@@ -42,14 +43,15 @@ const headers = {
  * Основная функция инициализации приложения
  */
 async function initApp() {
-  const userCity = {};
+  let userCity = {};
   try {
     const position = await getCurrentPosition();
     userCity = {
       lat: position.coords.latitude,
       lon: position.coords.longitude,
-      name: "",
+      name: "Ваше местоположение",
     };
+    console.log("Геолокация получена:", userCity.name);
   } catch (error) {
     console.warn("Не удалось получить геолокацию:", error.message);
     // Загружаем погоду для города по умолчанию
@@ -57,45 +59,66 @@ async function initApp() {
     return;
   }
 
-  // Загружаем погоду для города по умолчанию
-  loadWeatherData(userCity);
+  if (userCity.lat && userCity.lon) {
+    loadWeatherData(userCity);
+  }
 
-  // Обработчик кнопки поиска
-  searchBtn.addEventListener("click", () => {
-    const city = cityInput.value.trim();
-    console.log(`Перехвачено событие КЛИК - город = ${city}`);
-    switch (city) {
-      case "Amsterdam":
-        loadWeatherData(defaultCityAmsterdam);
-        cityInput.value = ""; // Очищаем поле ввода
-        break;
-      case "Moscow":
-        loadWeatherData(moscowCity);
-        cityInput.value = ""; // Очищаем поле ввода
-        break;
-      case "SaintPetersburg":
-        loadWeatherData(spbCity);
-        cityInput.value = ""; // Очищаем поле ввода
-        break;
-      case "NewYork":
-        loadWeatherData(newYorkCity);
-        cityInput.value = ""; // Очищаем поле ввода
-        break;
-      case "Paris":
-        loadWeatherData(parisCity);
-        cityInput.value = ""; // Очищаем поле ввода
-        break;
-      default:
-        break;
-    }
-  });
+  // Обработчик формы (заменяем click и keyup)
+  searchForm.addEventListener("submit", handleFormSubmit);
+}
 
-  // Поиск по нажатию Enter
-  cityInput.addEventListener("keyup", (event) => {
-    if (event.key === "Enter") {
-      searchBtn.click();
-    }
-  });
+function handleFormSubmit(event) {
+  event.preventDefault(); // Предотвращаем перезагрузку страницы
+
+  const city = cityInput ? cityInput.value.trim() : "";
+  console.log(`Перехвачено событие SUBMIT - город = ${city}`);
+
+  if (city) {
+    handleCitySearch(city);
+    cityInput.value = ""; // Очищаем поле ввода
+  } else {
+    showError("Пожалуйста, введите название города");
+  }
+}
+
+/**
+ * Обработка поиска города
+ */
+function handleCitySearch(city) {
+  console.log(`Обрабатываем город: ${city}`);
+  switch (city) {
+    case "amsterdam":
+      loadWeatherData(defaultCityAmsterdam);
+      break;
+    case "moscow":
+    case "Moscow":
+    case "Москва":
+    case "москва":
+      loadWeatherData(moscowCity);
+      break;
+    case "saintpetersburg":
+    case "SaintPetersburg":
+    case "Петербург":
+    case "СанктПетербург":
+      loadWeatherData(spbCity);
+      break;
+    case "newyork":
+    case "NewYork":
+      loadWeatherData(newYorkCity);
+      break;
+    case "paris":
+    case "Paris":
+    case "Париж":
+      loadWeatherData(parisCity);
+      break;
+    default:
+      if (city) {
+        showError(
+          `Город "${city}" не найден. Попробуйте: Amsterdam, Moscow, SaintPetersburg, NewYork, Paris`,
+        );
+      }
+      break;
+  }
 }
 
 /**
@@ -103,17 +126,14 @@ async function initApp() {
  */
 async function loadWeatherData(city) {
   try {
-    console.log(`Начало обработки`);
+    console.log(`Начало обработки для города: ${city.name || "неизвестный"}`);
     let rspnce = await fetch(
       `https://api.weather.yandex.ru/v2/forecast?lat=${city.lat}&lon=${city.lon}`,
       { headers },
     );
-    // .then(response => response.json())
-    // .then(json => console.log(json));
 
     if (!rspnce.ok) {
       console.log(`rspnc не ок`);
-      // Обработка ошибок HTTP
       const errorText = await rspnce.text();
       console.error("HTTP Error:", rspnce.status, errorText);
       // Показать сообщение пользователю
@@ -139,17 +159,45 @@ function getCurrentPosition(options = {}) {
       return;
     }
 
-    navigator.geolocation.getCurrentPosition(resolve, reject, {
-      enableHighAccuracy: true, // Высокая точность
-      timeout: 10000, // 10 секунд на получение
-      maximumAge: 600000, // Кэшировать на 10 минут
-      ...options,
-    });
+    navigator.geolocation.getCurrentPosition(
+      resolve,
+      (error) => {
+        let errorMessage = "Не удалось получить геолокацию";
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            errorMessage = "Пользователь отказал в доступе к геолокации";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMessage = "Информация о местоположении недоступна";
+            break;
+          case error.TIMEOUT:
+            errorMessage = "Время ожидания геолокации истекло";
+            break;
+        }
+        reject(new Error(errorMessage));
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 600000,
+        ...options,
+      },
+    );
   });
 }
 
 // Инициализация приложения после загрузки DOM
-document.addEventListener("DOMContentLoaded", initApp);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initApp);
+} else {
+  initApp();
+}
 
 // Экспорты для возможного тестирования
-export { initApp, loadWeatherData };
+export {
+  initApp,
+  handleCitySearch,
+  handleFormSubmit,
+  getCurrentPosition,
+  loadWeatherData,
+};
