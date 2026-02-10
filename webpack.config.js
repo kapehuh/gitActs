@@ -7,8 +7,9 @@ const { resolve } = require("dns");
 module.exports = {
   entry: "./src/index.js",
   output: {
-    filename: "main.js",
+    filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "dist"),
+    clean: true, // Очищает папку dist перед каждой сборкой
   },
   devServer: {
     static: {
@@ -35,5 +36,10 @@ module.exports = {
   experiments: {
     topLevelAwait: true,
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      title: "Weather App",
+    }),
+  ],
 };
