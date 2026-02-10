@@ -5,7 +5,7 @@ import "./styles/index.css";
 import { updateUI, showError } from "./modules/ui.js";
 // DOM-элементы
 const cityInput = document.getElementById("city-input");
-const searchBtn = document.getElementById("search-btn");
+//const searchBtn = document.getElementById("search-btn");
 const searchForm = document.getElementById("search-box");
 
 const defaultCityAmsterdam = {
