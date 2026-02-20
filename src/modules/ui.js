@@ -1,39 +1,34 @@
-// ==============================================================================================================
+// src/modules/ui.js
+
+// DOM-элементы (можно получать внутри функций или экспортировать глобально)
+const cityNameEl = document.getElementById("city-name");
+const currentTempEl = document.getElementById("current-temp");
+const feelsLikeEl = document.getElementById("feels-like");
+const humidityEl = document.getElementById("humidity");
+const windSpeedEl = document.getElementById("wind-speed");
+
 /**
- * Обновляет все элементы интерфейса данными о погоде
- * @param {object} data - Данные о погоде
+ * Обновляет интерфейс данными погоды (формат после трансформации)
+ * @param {object} weatherData
  */
 export function updateUI(weatherData) {
-  document.getElementById("city-name").textContent =
-    weatherData.info?.tzinfo?.name;
-  document.getElementById("current-temp").textContent = Math.round(
-    weatherData.fact?.temp,
-  );
-  document.getElementById("feels-like").textContent = Math.round(
-    weatherData.fact?.feels_like,
-  );
-  document.getElementById("humidity").textContent = Math.round(
-    weatherData.fact?.humidity,
-  );
-  document.getElementById("wind-speed").textContent = Math.round(
-    weatherData.fact?.wind_speed,
-  );
+  if (!weatherData) return;
+
+  cityNameEl.textContent = weatherData.name || "Unknown";
+  currentTempEl.textContent = Math.round(weatherData.main.temp);
+  feelsLikeEl.textContent = Math.round(weatherData.main.feels_like);
+  humidityEl.textContent = weatherData.main.humidity;
+
+  // скорость ветра из м/с в км/ч (если нужно)
+  const windSpeedKmh = (weatherData.wind.speed * 3.6).toFixed(1);
+  windSpeedEl.textContent = windSpeedKmh;
 }
 
 /**
- * Показывает сообщение об ошибке
- * @param {string} message - Текст ошибки
+ * Показывает сообщение об ошибке (временная заглушка – можно улучшить)
+ * @param {string} message
  */
 export function showError(message) {
-  alert(`Error: ${message}`); // Временное решение
-  console.error("[UI] Error:", message);
-}
-
-/**
- * Конвертирует температуру из Кельвинов в Цельсии
- * @param {number} frgh - Температура в Кельвинах
- * @returns {number} Температура в Цельсиях
- */
-export function frhgToCelsius(frgh) {
-  return (frgh - 32) / 1.8;
+  alert(message); // или более изящный компонент
+  console.error(message);
 }
