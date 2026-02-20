@@ -10,7 +10,7 @@ export default defineConfig([
       ecmaVersion: "latest",
       globals: { ...globals.browser },
     },
-    rules: { "no-unused-vars": "warn", "no-console": "error" },
+    rules: { "no-unused-vars": "warn", "no-console": "off" },
   },
   {
     files: ["**/*.{js,mjs,cjs}"],

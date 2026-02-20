@@ -10,8 +10,8 @@
     "dev": "webpack serve --mode=development",
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "eslint:check": "eslint src",
-    "eslint:fix": "eslint src --fix",
+    "eslint:check": "eslint src --config eslint.config.mjs",
+    "eslint:fix": "eslint src --config eslint.config.mjs --fix",
     "prli:check": "npm run eslint:check && npm run prettier:check",
     "prli:fix": "npm run eslint:fix && npm run prettier:fix",
     "prepare": "node -e \"if (process.env.CI !== 'true') require('husky').install()\""
