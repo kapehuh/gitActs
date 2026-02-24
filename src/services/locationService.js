@@ -29,13 +29,13 @@ class LocationService {
         (error) => {
           let message = "Failed to get location";
           switch (error.code) {
-            case error.PERMISSION_DENIED:
+            case 1: // PERMISSION_DENIED
               message = "Location access denied";
               break;
-            case error.POSITION_UNAVAILABLE:
+            case 2: // POSITION_UNAVAILABLE
               message = "Location information unavailable";
               break;
-            case error.TIMEOUT:
+            case 3: // TIMEOUT
               message = "Location request timed out";
               break;
           }
