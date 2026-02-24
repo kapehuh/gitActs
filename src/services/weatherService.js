@@ -1,4 +1,4 @@
-// src/services/weatherService.js
+// src/services/weatherService.js main
 
 const API_KEY = "85b882b62fd1ca76d52cf910a69a5296"; // .env
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
