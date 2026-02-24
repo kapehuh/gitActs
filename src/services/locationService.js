@@ -29,7 +29,7 @@ class LocationService {
         (error) => {
           let message = "Failed to get location";
           switch (
-            error.code //upd
+            error.code //update
           ) {
             case 1: // PERMISSION_DENIED
               message = "Location access denied";
