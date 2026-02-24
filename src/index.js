@@ -17,7 +17,7 @@ async function loadWeatherByCity(city) {
   try {
     const data = await weatherService.getCurrentWeatherByCity(city);
     updateUI(data);
-    storageService.saveLastCity(city); // опционально
+    storageService.saveLastCity(city); // опц
   } catch (error) {
     showError(`Не удалось загрузить погоду для "${city}": ${error.message}`);
   }

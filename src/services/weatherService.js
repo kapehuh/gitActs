@@ -1,6 +1,6 @@
 // src/services/weatherService.js
 
-const API_KEY = "ваш_ключ_OpenWeatherMap"; // лучше через .env
+const API_KEY = "85b882b62fd1ca76d52cf910a69a5296"; // .env
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
 
 class WeatherService {
@@ -50,7 +50,7 @@ class WeatherService {
   }
 
   /**
-   * Приведение ответа OpenWeatherMap к единому формату, ожидаемому UI
+   * Приведение ответа OpenWeatherMap
    * @private
    */
   _transformCurrentWeather(data) {
@@ -62,12 +62,11 @@ class WeatherService {
         humidity: data.main.humidity,
       },
       wind: {
-        speed: data.wind.speed, // уже в м/с, но можно преобразовать в км/ч *3.6
+        speed: data.wind.speed,
       },
       weather: data.weather[0],
     };
   }
 }
 
-// Экспортируем экземпляр с ключом (ключ лучше брать из process.env)
 export default new WeatherService(API_KEY);

@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Заголовок будет подставлен из конфига Webpack -->
+    <!-- Заголовок из конфига Webpack -->
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <!-- Favicon можно добавить позже -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -39,7 +38,7 @@
             <div class="weather-details">
               <p>Feels like: <span id="feels-like">-</span>°C</p>
               <p>Humidity: <span id="humidity">-</span>%</p>
-              <p>Wind: <span id="wind-speed">-</span> km/h</p>
+              <p>Wind: <span id="wind-speed">-</span> m/s</p>
             </div>
           </div>
         </section>
@@ -57,7 +56,7 @@
       <footer class="footer">
         <p>
           Powered by
-          <a href="https://ya.ru" target="_blank">YandexWeather API</a>
+          <a href="https://openweathermap.org" target="_blank">OpenWeatherMap API</a>
         </p>
       </footer>
     </div>

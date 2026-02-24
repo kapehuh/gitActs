@@ -3,7 +3,7 @@
 class LocationService {
   /**
    * Получение текущих координат через Geolocation API
-   * @param {object} options - настройки геолокации
+   * @param {object} options
    * @returns {Promise<{lat: number, lon: number}>}
    */
   getCurrentPosition(options = {}) {
