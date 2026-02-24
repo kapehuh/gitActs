@@ -19,7 +19,7 @@ export function updateUI(weatherData) {
   feelsLikeEl.textContent = Math.round(weatherData.main.feels_like);
   humidityEl.textContent = weatherData.main.humidity;
 
-  const windSpeedKmh = (weatherData.wind.speed * 3.6).toFixed(1);
+  //const windSpeedKmh = (weatherData.wind.speed * 3.6).toFixed(1);
   windSpeedEl.textContent = weatherData.wind.speed;
 }
 
