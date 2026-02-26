@@ -18,27 +18,27 @@
           return t;
         }
         function r(n, r) {
-          for (var a = {}, i = [], c = 0; c < n.length; c++) {
-            var s = n[c],
-              d = r.base ? s[0] + r.base : s[0],
-              l = a[d] || 0,
-              u = "".concat(d, " ").concat(l);
-            a[d] = l + 1;
-            var p = t(u),
-              f = {
-                css: s[1],
-                media: s[2],
-                sourceMap: s[3],
-                supports: s[4],
-                layer: s[5],
+          for (var a = {}, i = [], s = 0; s < n.length; s++) {
+            var c = n[s],
+              d = r.base ? c[0] + r.base : c[0],
+              u = a[d] || 0,
+              l = "".concat(d, " ").concat(u);
+            a[d] = u + 1;
+            var p = t(l),
+              m = {
+                css: c[1],
+                media: c[2],
+                sourceMap: c[3],
+                supports: c[4],
+                layer: c[5],
               };
-            if (-1 !== p) (e[p].references++, e[p].updater(f));
+            if (-1 !== p) (e[p].references++, e[p].updater(m));
             else {
-              var m = o(f, r);
-              ((r.byIndex = c),
-                e.splice(c, 0, { identifier: u, updater: m, references: 1 }));
+              var f = o(m, r);
+              ((r.byIndex = s),
+                e.splice(s, 0, { identifier: l, updater: f, references: 1 }));
             }
-            i.push(u);
+            i.push(l);
           }
           return i;
         }
@@ -66,14 +66,14 @@
           return function (n) {
             n = n || [];
             for (var i = 0; i < a.length; i++) {
-              var c = t(a[i]);
-              e[c].references--;
+              var s = t(a[i]);
+              e[s].references--;
             }
-            for (var s = r(n, o), d = 0; d < a.length; d++) {
-              var l = t(a[d]);
-              0 === e[l].references && (e[l].updater(), e.splice(l, 1));
+            for (var c = r(n, o), d = 0; d < a.length; d++) {
+              var u = t(a[d]);
+              0 === e[u].references && (e[u].updater(), e.splice(u, 1));
             }
-            a = s;
+            a = c;
           };
         };
       },
@@ -87,7 +87,7 @@
         };
       },
       208(n, e, t) {
-        t.d(e, { A: () => c });
+        t.d(e, { A: () => s });
         var r = t(601),
           o = t.n(r),
           a = t(314),
@@ -97,7 +97,7 @@
           '/* Базовые сбросы и box-sizing */\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  font-family: "Inter", sans-serif;\n  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);\n  min-height: 100vh;\n  padding: 20px;\n  color: #333;\n}\n\n/* Контейнер приложения */\n.app {\n  max-width: 1200px;\n  margin: 0 auto;\n}\n\n/* Карточки */\n.card {\n  background: white;\n  border-radius: 20px;\n  padding: 30px;\n  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);\n  margin-bottom: 30px;\n}\n\n/* Шапка */\n.header {\n  text-align: center;\n  margin-bottom: 40px;\n}\n\n.header h1 {\n  font-size: 2.8rem;\n  margin-bottom: 20px;\n  color: #2d3748;\n}\n\n.search-box {\n  display: flex;\n  justify-content: center;\n  gap: 15px;\n  max-width: 500px;\n  margin: 0 auto;\n}\n\n#city-input {\n  flex-grow: 1;\n  padding: 15px 20px;\n  border: 2px solid #e2e8f0;\n  border-radius: 12px;\n  font-size: 1.1rem;\n  transition: border-color 0.3s;\n}\n\n#city-input:focus {\n  outline: none;\n  border-color: #4299e1;\n}\n\n#search-btn {\n  padding: 15px 30px;\n  background: #4299e1;\n  color: white;\n  border: none;\n  border-radius: 12px;\n  font-size: 1.1rem;\n  cursor: pointer;\n  transition: background 0.3s;\n}\n\n#search-btn:hover {\n  background: #3182ce;\n}\n\n/* Текущая погода */\n.current-weather h2 {\n  font-size: 1.8rem;\n  margin-bottom: 25px;\n  color: #4a5568;\n}\n\n.weather-display {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  gap: 40px;\n}\n\n.temperature {\n  font-size: 5rem;\n  font-weight: 600;\n  color: #2d3748;\n}\n\n.temperature sup {\n  font-size: 2.5rem;\n  vertical-align: super;\n}\n\n.weather-details p {\n  font-size: 1.2rem;\n  margin-bottom: 10px;\n  color: #4a5568;\n}\n\n.weather-details span {\n  font-weight: 600;\n  color: #2d3748;\n}\n\n/* Прогноз */\n.forecast h2 {\n  font-size: 1.8rem;\n  margin-bottom: 25px;\n  color: #4a5568;\n}\n\n.forecast-container {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));\n  gap: 20px;\n}\n\n.forecast-day {\n  background: #f7fafc;\n  border-radius: 12px;\n  padding: 20px;\n  text-align: center;\n  border: 1px solid #e2e8f0;\n}\n\n.forecast-day .day {\n  font-weight: 600;\n  margin-bottom: 10px;\n  color: #4a5568;\n}\n\n.forecast-day .temp {\n  font-size: 1.5rem;\n  font-weight: 600;\n  color: #2d3748;\n}\n\n.placeholder {\n  text-align: center;\n  color: #a0aec0;\n  font-style: italic;\n  grid-column: 1 / -1;\n  padding: 40px;\n}\n\n/* Подвал */\n.footer {\n  text-align: center;\n  margin-top: 40px;\n  color: #718096;\n  font-size: 0.9rem;\n}\n\n.footer a {\n  color: #4299e1;\n  text-decoration: none;\n}\n\n.footer a:hover {\n  text-decoration: underline;\n}\n\n/* Адаптивность */\n@media (max-width: 768px) {\n  .header h1 {\n    font-size: 2.2rem;\n  }\n\n  .search-box {\n    flex-direction: column;\n  }\n\n  .weather-display {\n    flex-direction: column;\n    text-align: center;\n    gap: 30px;\n  }\n\n  .temperature {\n    font-size: 4rem;\n  }\n\n  .forecast-container {\n    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));\n  }\n}\n',
           "",
         ]);
-        const c = i;
+        const s = i;
       },
       314(n) {
         n.exports = function (n) {
@@ -127,34 +127,34 @@
               "string" == typeof n && (n = [[null, n, void 0]]);
               var i = {};
               if (r)
-                for (var c = 0; c < this.length; c++) {
-                  var s = this[c][0];
-                  null != s && (i[s] = !0);
+                for (var s = 0; s < this.length; s++) {
+                  var c = this[s][0];
+                  null != c && (i[c] = !0);
                 }
               for (var d = 0; d < n.length; d++) {
-                var l = [].concat(n[d]);
-                (r && i[l[0]]) ||
+                var u = [].concat(n[d]);
+                (r && i[u[0]]) ||
                   (void 0 !== a &&
-                    (void 0 === l[5] ||
-                      (l[1] = "@layer"
-                        .concat(l[5].length > 0 ? " ".concat(l[5]) : "", " {")
-                        .concat(l[1], "}")),
-                    (l[5] = a)),
+                    (void 0 === u[5] ||
+                      (u[1] = "@layer"
+                        .concat(u[5].length > 0 ? " ".concat(u[5]) : "", " {")
+                        .concat(u[1], "}")),
+                    (u[5] = a)),
                   t &&
-                    (l[2]
-                      ? ((l[1] = "@media "
-                          .concat(l[2], " {")
-                          .concat(l[1], "}")),
-                        (l[2] = t))
-                      : (l[2] = t)),
+                    (u[2]
+                      ? ((u[1] = "@media "
+                          .concat(u[2], " {")
+                          .concat(u[1], "}")),
+                        (u[2] = t))
+                      : (u[2] = t)),
                   o &&
-                    (l[4]
-                      ? ((l[1] = "@supports ("
-                          .concat(l[4], ") {")
-                          .concat(l[1], "}")),
-                        (l[4] = o))
-                      : (l[4] = "".concat(o))),
-                  e.push(l));
+                    (u[4]
+                      ? ((u[1] = "@supports ("
+                          .concat(u[4], ") {")
+                          .concat(u[1], "}")),
+                        (u[4] = o))
+                      : (u[4] = "".concat(o))),
+                  e.push(u));
               }
             }),
             e
@@ -263,156 +263,152 @@
     o = t.n(r),
     a = t(825),
     i = t.n(a),
-    c = t(659),
-    s = t.n(c),
+    s = t(659),
+    c = t.n(s),
     d = t(56),
-    l = t.n(d),
-    u = t(540),
-    p = t.n(u),
-    f = t(113),
-    m = t.n(f),
+    u = t.n(d),
+    l = t(540),
+    p = t.n(l),
+    m = t(113),
+    f = t.n(m),
     g = t(208),
     h = {};
-  function x(n) {
-    (alert(`Error: ${n}`), console.error("[UI] Error:", n));
-  }
-  ((h.styleTagTransform = m()),
-    (h.setAttributes = l()),
-    (h.insert = s().bind(null, "head")),
+  ((h.styleTagTransform = f()),
+    (h.setAttributes = u()),
+    (h.insert = c().bind(null, "head")),
     (h.domAPI = i()),
     (h.insertStyleElement = p()),
     o()(g.A, h),
     g.A && g.A.locals && g.A.locals);
-  const b = document.getElementById("city-input"),
-    v = document.getElementById("search-box"),
-    y = { lat: "52.3730796", lon: "4.8924534", name: "Amsterdam" },
-    w = { lat: "55.625578", lon: "37.6063916", name: "Moscow" },
-    E = { lat: "59.938784", lon: "30.314997", name: "SaintPetersburg" },
-    I = { lat: "40.7127281", lon: "-74.0060152", name: "NewYork" },
-    k = { lat: "48.856663", lon: "2.351556", name: "Paris" },
-    M = { "X-Yandex-Weather-Key": "a45d67a4-3189-4adc-bd2d-fa7f3085bd59" };
-  async function A() {
-    let n = {};
-    try {
-      const e = await (function (n = {}) {
+  const y = document.getElementById("city-name"),
+    x = document.getElementById("current-temp"),
+    w = document.getElementById("feels-like"),
+    v = document.getElementById("humidity"),
+    b = document.getElementById("wind-speed");
+  function C(n) {
+    n &&
+      ((y.textContent = n.name || "Unknown"),
+      (x.textContent = Math.round(n.main.temp)),
+      (w.textContent = Math.round(n.main.feels_like)),
+      (v.textContent = n.main.humidity),
+      (b.textContent = n.wind.speed));
+  }
+  function E(n) {
+    (alert(n), console.error(n));
+  }
+  const I = "https://api.openweathermap.org/data/2.5",
+    k = new (class {
+      constructor(n) {
+        this.apiKey = n;
+      }
+      async getCurrentWeatherByCity(n) {
+        if (!n) throw new Error("City name is required");
+        const e = `${I}/weather?q=${encodeURIComponent(n)}&units=metric&appid=${this.apiKey}`,
+          t = await fetch(e);
+        if (!t.ok) {
+          const n = await t.json().catch(() => ({}));
+          throw new Error(n.message || `HTTP error ${t.status}`);
+        }
+        const r = await t.json();
+        return this._transformCurrentWeather(r);
+      }
+      async getCurrentWeatherByCoords(n, e) {
+        if (!n || !e) throw new Error("Latitude and longitude are required");
+        const t = `${I}/weather?lat=${n}&lon=${e}&units=metric&appid=${this.apiKey}`,
+          r = await fetch(t);
+        if (!r.ok) {
+          const n = await r.json().catch(() => ({}));
+          throw new Error(n.message || `HTTP error ${r.status}`);
+        }
+        const o = await r.json();
+        return this._transformCurrentWeather(o);
+      }
+      _transformCurrentWeather(n) {
+        return {
+          name: n.name,
+          main: {
+            temp: n.main.temp,
+            feels_like: n.main.feels_like,
+            humidity: n.main.humidity,
+          },
+          wind: { speed: n.wind.speed },
+          weather: n.weather[0],
+        };
+      }
+    })("85b882b62fd1ca76d52cf910a69a5296"),
+    L = new (class {
+      getCurrentPosition(n = {}) {
         return new Promise((e, t) => {
           navigator.geolocation
             ? navigator.geolocation.getCurrentPosition(
-                e,
                 (n) => {
-                  let e = "Не удалось получить геолокацию";
+                  e({ lat: n.coords.latitude, lon: n.coords.longitude });
+                },
+                (n) => {
+                  let e = "Failed to get location";
                   switch (n.code) {
-                    case n.PERMISSION_DENIED:
-                      e = "Пользователь отказал в доступе к геолокации";
+                    case 1:
+                      e = "Location access denied";
                       break;
-                    case n.POSITION_UNAVAILABLE:
-                      e = "Информация о местоположении недоступна";
+                    case 2:
+                      e = "Location information unavailable";
                       break;
-                    case n.TIMEOUT:
-                      e = "Время ожидания геолокации истекло";
+                    case 3:
+                      e = "Location request timed out";
                   }
                   t(new Error(e));
                 },
                 { enableHighAccuracy: !0, timeout: 1e4, maximumAge: 6e5, ...n },
               )
-            : t(new Error("Геолокация не поддерживается браузером"));
+            : t(new Error("Geolocation is not supported by your browser"));
         });
-      })();
-      ((n = {
-        lat: e.coords.latitude,
-        lon: e.coords.longitude,
-        name: "Ваше местоположение",
-      }),
-        console.log("Геолокация получена:", n.name));
-    } catch (n) {
-      return (
-        console.warn("Не удалось получить геолокацию:", n.message),
-        void z(y)
-      );
-    }
-    (n.lat && n.lon && z(n), v.addEventListener("submit", P));
-  }
-  function P(n) {
-    n.preventDefault();
-    const e = b ? b.value.trim() : "";
-    (console.log(`Перехвачено событие SUBMIT - город = ${e}`),
-      e
-        ? ((function (n) {
-            switch ((console.log(`Обрабатываем город: ${n}`), n)) {
-              case "amsterdam":
-                z(y);
-                break;
-              case "moscow":
-              case "Moscow":
-              case "Москва":
-              case "москва":
-                z(w);
-                break;
-              case "saintpetersburg":
-              case "SaintPetersburg":
-              case "Петербург":
-              case "СанктПетербург":
-                z(E);
-                break;
-              case "newyork":
-              case "NewYork":
-                z(I);
-                break;
-              case "paris":
-              case "Paris":
-              case "Париж":
-                z(k);
-                break;
-              default:
-                n &&
-                  x(
-                    `Город "${n}" не найден. Попробуйте: Amsterdam, Moscow, SaintPetersburg, NewYork, Paris`,
-                  );
-            }
-          })(e),
-          (b.value = ""))
-        : x("Пожалуйста, введите название города"));
-  }
-  async function z(n) {
-    try {
-      console.log(`Начало обработки для города: ${n.name || "неизвестный"}`);
-      let t = await fetch(
-        `https://api.weather.yandex.ru/v2/forecast?lat=${n.lat}&lon=${n.lon}`,
-        { headers: M },
-      );
-      if (!t.ok) {
-        console.log("rspnc не ок");
-        const n = await t.text();
-        return (
-          console.error("HTTP Error:", t.status, n),
-          void x(`Ошибка ${t.status}: Не удалось получить данные о погоде`)
-        );
       }
-      const r = await t.json();
-      (console.log("Полные данные API:", r),
-        (e = r),
-        (document.getElementById("city-name").textContent =
-          e.info?.tzinfo?.name),
-        (document.getElementById("current-temp").textContent = Math.round(
-          e.fact?.temp,
-        )),
-        (document.getElementById("feels-like").textContent = Math.round(
-          e.fact?.feels_like,
-        )),
-        (document.getElementById("humidity").textContent = Math.round(
-          e.fact?.humidity,
-        )),
-        (document.getElementById("wind-speed").textContent = Math.round(
-          e.fact?.wind_speed,
-        )),
-        console.log(`Weather data loaded for ${n.name}`));
-    } catch (n) {
-      (x("Failed to load weather data. Please try again."),
-        console.error("Error loading weather:", n));
+    })(),
+    z = "lastCity",
+    T = new (class {
+      saveLastCity(n) {
+        n && localStorage.setItem(z, n);
+      }
+      getLastCity() {
+        return localStorage.getItem(z) || null;
+      }
+      clearLastCity() {
+        localStorage.removeItem(z);
+      }
+    })(),
+    A = document.getElementById("city-input"),
+    M = document.getElementById("search-box");
+  async function $(n) {
+    try {
+      (C(await k.getCurrentWeatherByCity(n)), T.saveLastCity(n));
+    } catch (e) {
+      E(`Не удалось загрузить погоду для "${n}": ${e.message}`);
     }
-    var e;
+  }
+  async function B(n) {
+    n.preventDefault();
+    const e = A.value.trim();
+    e ? (await $(e), (A.value = "")) : E("Введите название города");
+  }
+  async function S() {
+    try {
+      const { lat: n, lon: e } = await L.getCurrentPosition();
+      await (async function (n, e) {
+        try {
+          const t = await k.getCurrentWeatherByCoords(n, e);
+          (C(t), T.saveLastCity(t.name));
+        } catch (n) {
+          E(`Не удалось загрузить погоду: ${n.message}`);
+        }
+      })(n, e);
+    } catch (n) {
+      console.warn("Геолокация не доступна:", n.message);
+      const e = T.getLastCity();
+      e ? await $(e) : await $("Moscow");
+    }
+    M.addEventListener("submit", B);
   }
   "loading" === document.readyState
-    ? document.addEventListener("DOMContentLoaded", A)
-    : A();
+    ? document.addEventListener("DOMContentLoaded", S)
+    : S();
 })();
