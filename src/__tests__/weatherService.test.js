@@ -42,4 +42,64 @@ describe("WeatherService", () => {
       weatherService.getCurrentWeatherByCity("Unknown"),
     ).rejects.toThrow("city not found");
   });
+
+  test("throws error with message from API on failed response", async () => {
+    fetch.mockResolvedValueOnce({
+      ok: false,
+      status: 404,
+      json: async () => ({ message: "city not found" }),
+    });
+
+    await expect(
+      weatherService.getCurrentWeatherByCity("Unknown"),
+    ).rejects.toThrow("city not found");
+  });
+
+  test("throws generic HTTP error when response has no message", async () => {
+    fetch.mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      json: async () => ({}), // пустой объект, без message
+    });
+
+    await expect(
+      weatherService.getCurrentWeatherByCity("London"),
+    ).rejects.toThrow("HTTP error 500");
+  });
+
+  test("throws error if city name is empty", async () => {
+    await expect(weatherService.getCurrentWeatherByCity("")).rejects.toThrow(
+      "City name is required",
+    );
+    await expect(weatherService.getCurrentWeatherByCity(null)).rejects.toThrow(
+      "City name is required",
+    );
+  });
+
+  test("throws error on network failure", async () => {
+    fetch.mockRejectedValueOnce(new Error("Network error"));
+    await expect(
+      weatherService.getCurrentWeatherByCity("London"),
+    ).rejects.toThrow("Network error");
+  });
+
+  test("throws error if coordinates missing", async () => {
+    await expect(
+      weatherService.getCurrentWeatherByCoords(null, 10),
+    ).rejects.toThrow("Latitude and longitude are required");
+    await expect(
+      weatherService.getCurrentWeatherByCoords(10, null),
+    ).rejects.toThrow("Latitude and longitude are required");
+  });
+
+  test("throws error on HTTP 404 with message", async () => {
+    fetch.mockResolvedValueOnce({
+      ok: false,
+      status: 404,
+      json: async () => ({ message: "location not found" }),
+    });
+    await expect(
+      weatherService.getCurrentWeatherByCoords(0, 0),
+    ).rejects.toThrow("location not found");
+  });
 });

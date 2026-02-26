@@ -1,85 +1,61 @@
-// src/index.js
-
 import "./styles/index.css";
-import { updateUI, showError } from "./modules/ui.js";
+import EventEmitter from "./core/eventEmitter";
 import weatherService from "./services/weatherService";
 import locationService from "./services/locationService";
 import storageService from "./services/storageService";
+import SearchWidget from "./components/SearchWidget";
+import CurrentWeatherWidget from "./components/CurrentWeatherWidget";
 
-const cityInput = document.getElementById("city-input");
-const searchForm = document.getElementById("search-box");
+const eventBus = new EventEmitter();
 
-/**
- * Загружает погоду для указанного города
- * @param {string} city
- */
-async function loadWeatherByCity(city) {
+// Инициализация виджетов
+const searchWidget = new SearchWidget(eventBus, {
+  formId: "search-box",
+  inputId: "city-input",
+});
+
+const currentWeatherWidget = new CurrentWeatherWidget(eventBus, {
+  cityName: document.getElementById("city-name"),
+  temp: document.getElementById("current-temp"),
+  feelsLike: document.getElementById("feels-like"),
+  humidity: document.getElementById("humidity"),
+  wind: document.getElementById("wind-speed"),
+});
+
+// Обработчики событий на уровне приложения
+eventBus.on("city:changed", async (city) => {
   try {
     const data = await weatherService.getCurrentWeatherByCity(city);
-    updateUI(data);
-    storageService.saveLastCity(city); // опц
+    eventBus.emit("weather:loaded", data);
+    storageService.saveLastCity(city);
   } catch (error) {
-    showError(`Не удалось загрузить погоду для "${city}": ${error.message}`);
+    eventBus.emit("weather:error", error.message);
   }
-}
+});
 
-/**
- * Загружает погоду по координатам
- * @param {number} lat
- * @param {number} lon
- */
 async function loadWeatherByCoords(lat, lon) {
   try {
     const data = await weatherService.getCurrentWeatherByCoords(lat, lon);
-    updateUI(data);
-    storageService.saveLastCity(data.name); // сохраняем название города
+    eventBus.emit("weather:loaded", data);
+    storageService.saveLastCity(data.name);
   } catch (error) {
-    showError(`Не удалось загрузить погоду: ${error.message}`);
+    eventBus.emit("weather:error", error.message);
   }
 }
 
-/**
- * Обработчик отправки формы поиска
- */
-async function handleFormSubmit(event) {
-  event.preventDefault();
-  const city = cityInput.value.trim();
-  if (!city) {
-    showError("Введите название города");
-    return;
-  }
-  await loadWeatherByCity(city);
-  cityInput.value = ""; // очищаем поле после поиска
-}
-
-/**
- * Инициализация приложения
- */
+// Стартовая загрузка: геолокация или последний город
 async function initApp() {
-  // Пробуем получить геолокацию
   try {
     const { lat, lon } = await locationService.getCurrentPosition();
     await loadWeatherByCoords(lat, lon);
-  } catch (locationError) {
-    console.warn("Геолокация не доступна:", locationError.message);
-
-    // Если геолокация не сработала, пробуем загрузить последний сохранённый город
+  } catch {
     const lastCity = storageService.getLastCity();
     if (lastCity) {
-      await loadWeatherByCity(lastCity);
+      eventBus.emit("city:changed", lastCity);
     } else {
-      // Иначе показываем город по умолчанию (например, Москва)
-      await loadWeatherByCity("Moscow");
+      eventBus.emit("city:changed", "Moscow");
     }
   }
-
-  // Подписка на событие формы
-  searchForm.addEventListener("submit", handleFormSubmit);
 }
 
-// Старт приложения после загрузки DOM
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initApp);
-} else {
-  initApp();
-}
+initApp();

@@ -1,4 +1,23 @@
 module.exports = {
+  collectCoverage: true,
+  collectCoverageFrom: [
+    "src/**/*.js",
+    "!src/**/*.test.js",
+    "!src/**/index.js",
+    "!src/modules/ui.js",
+  ],
+  coverageThreshold: {
+    global: {
+      lines: 60,
+      functions: 60,
+      branches: 50,
+    },
+    "./src/core/eventEmitter.js": {
+      lines: 70,
+      functions: 70,
+      branches: 70,
+    },
+  },
   // Указываем Jest использовать Babel для транспиляции JS
   transform: {
     "^.+\\.[t|j]sx?$": "babel-jest",

@@ -20,4 +20,11 @@ describe("StorageService", () => {
     storageService.clearLastCity();
     expect(localStorage.getItem("lastCity")).toBeNull();
   });
+
+  test("saveLastCity does nothing if city is empty", () => {
+    storageService.saveLastCity("");
+    expect(localStorage.getItem("lastCity")).toBeNull();
+    storageService.saveLastCity(null);
+    expect(localStorage.getItem("lastCity")).toBeNull();
+  });
 });

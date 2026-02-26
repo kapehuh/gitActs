@@ -38,4 +38,31 @@ describe("LocationService", () => {
       "Geolocation is not supported",
     );
   });
+
+  test("rejects with permission denied on code 1", async () => {
+    geolocationMock.getCurrentPosition.mockImplementation((_, error) =>
+      error({ code: 1 }),
+    );
+    await expect(locationService.getCurrentPosition()).rejects.toThrow(
+      "Location access denied",
+    );
+  });
+
+  test("rejects with position unavailable on code 2", async () => {
+    geolocationMock.getCurrentPosition.mockImplementation((_, error) =>
+      error({ code: 2 }),
+    );
+    await expect(locationService.getCurrentPosition()).rejects.toThrow(
+      "Location information unavailable",
+    );
+  });
+
+  test("rejects with timeout on code 3", async () => {
+    geolocationMock.getCurrentPosition.mockImplementation((_, error) =>
+      error({ code: 3 }),
+    );
+    await expect(locationService.getCurrentPosition()).rejects.toThrow(
+      "Location request timed out",
+    );
+  });
 });

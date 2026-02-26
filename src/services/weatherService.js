@@ -35,7 +35,8 @@ class WeatherService {
    * @returns {Promise<object>} - данные погоды
    */
   async getCurrentWeatherByCoords(lat, lon) {
-    if (!lat || !lon) throw new Error("Latitude and longitude are required");
+    if (lat == null || lon == null)
+      throw new Error("Latitude and longitude are required");
 
     const url = `${BASE_URL}/weather?lat=${lat}&lon=${lon}&units=metric&appid=${this.apiKey}`;
     const response = await fetch(url);
