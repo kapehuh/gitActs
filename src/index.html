@@ -16,15 +16,20 @@
     <div id="app" class="app">
       <header class="header">
         <h1>🌤 Weather Forecast</h1>
-        <form id="search-box" class="search-form">
+        <form id="search-form" class="search-form">
+          <input id="search-input" type="text" placeholder="Enter city..." required/>
+          <button id="search-btn" type="submit">Найти</button>
+        </form>
+
+        <!-- <form id="search-box" class="search-form">
           <input
-            id="city-input"
+            id="search-input"
             type="text"
             placeholder="Введите город..."
             required
           />
           <button id="search-btn" type="submit">Найти</button>
-        </form>
+        </form> -->
       </header>
 
       <main class="main-content">

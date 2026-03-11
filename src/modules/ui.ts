@@ -1,14 +1,16 @@
-interface WeatherData {
-  name?: string;
-  main: {
-    temp: number;
-    feels_like: number;
-    humidity: number;
-  };
-  wind: {
-    speed: number;
-  };
-}
+import { WeatherData } from '../types/weather';
+
+// interface WeatherData {
+//   name?: string;
+//   main: {
+//     temp: number;
+//     feels_like: number;
+//     humidity: number;
+//   };
+//   wind: {
+//     speed: number;
+//   };
+// }
 
 // DOM-элементы
 const cityNameEl = document.getElementById("city-name");

@@ -182,6 +182,10 @@ body {
     flex-direction: column;
   }
 
+  .search-form {
+    flex-direction: column;
+  }
+
   .weather-display {
     flex-direction: column;
     text-align: center;
