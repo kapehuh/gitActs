@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Type check
+        run: npm run type-check
+        
       - name: Checkout code
         uses: actions/checkout@v3
 

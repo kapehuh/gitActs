@@ -1,8 +1,8 @@
 module.exports = {
   // Указываем Jest использовать Babel для транспиляции JS
-  transform: {
-    "^.+\\.[t|j]sx?$": "babel-jest",
-  },
+  // transform: {
+  //   "^.+\\.[t|j]sx?$": "babel-jest",
+  // },
   // Заглушаем (игнорируем) определённые типы файлов
   moduleNameMapper: {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",

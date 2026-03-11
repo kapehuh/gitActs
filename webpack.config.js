@@ -5,7 +5,7 @@ const { type } = require("os");
 const { resolve } = require("dns");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/index.ts",
   output: {
     filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "docs"),
@@ -19,6 +19,11 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/, // обрабатываем .ts и .tsx
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
       {
         test: /\.js$/,
         type: "javascript/auto",
@@ -42,4 +47,7 @@ module.exports = {
       title: "Weather App",
     }),
   ],
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
 };
