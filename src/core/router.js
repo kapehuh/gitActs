@@ -1,3 +1,4 @@
+//empty comment
 class Router {
   constructor() {
     this.routes = [];
