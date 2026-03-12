@@ -6,6 +6,9 @@ const storageService = {
   getLastCity(): string | null {
     return localStorage.getItem("lastCity");
   },
+  clearLastCity(): void {
+    localStorage.removeItem('lastCity');
+  },
 };
 
 export default storageService;
