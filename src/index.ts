@@ -109,18 +109,21 @@ function initApp() {
     }
   });
 
-  // Запускаем роутер
-  router.start();
-
   // ссылка "О приложении" в футер
   const footer = document.querySelector(".footer p");
   if (footer) {
     const aboutLink = document.createElement("a");
-    aboutLink.href = "#/about";
+    aboutLink.href = "#";
     aboutLink.textContent = " About";
-    aboutLink.style.marginLeft = "10px";
+    aboutLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      router.navigate("/about");
+    });
     footer.appendChild(aboutLink);
   }
+
+  // Запускаем роутер
+  router.start();
 }
 
 if (document.readyState === 'loading') {
