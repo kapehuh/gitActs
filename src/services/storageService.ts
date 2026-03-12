@@ -7,7 +7,7 @@ const storageService = {
     return localStorage.getItem("lastCity");
   },
   clearLastCity(): void {
-    localStorage.removeItem('lastCity');
+    localStorage.removeItem("lastCity");
   },
 };
 
