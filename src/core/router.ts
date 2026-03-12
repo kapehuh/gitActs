@@ -6,22 +6,30 @@ interface Route {
 
 class Router {
   private routes: Route[] = [];
-  private currentPath = '';
+  private currentPath = "";
 
-  addRoute(path: string, handler: (params: Record<string, string>) => void): void {
+  addRoute(
+    path: string,
+    handler: (params: Record<string, string>) => void,
+  ): void {
     this.routes.push({ path, handler });
   }
 
-  private matchRoute(path: string): { handler: (params: Record<string, string>) => void; params: Record<string, string> } | null {
+  private matchRoute(
+    path: string,
+  ): {
+    handler: (params: Record<string, string>) => void;
+    params: Record<string, string>;
+  } | null {
     for (const route of this.routes) {
-      const routeParts = route.path.split('/');
-      const pathParts = path.split('/');
+      const routeParts = route.path.split("/");
+      const pathParts = path.split("/");
       if (routeParts.length !== pathParts.length) continue;
 
       const params: Record<string, string> = {};
       let match = true;
       for (let i = 0; i < routeParts.length; i++) {
-        if (routeParts[i].startsWith(':')) {
+        if (routeParts[i].startsWith(":")) {
           const paramName = routeParts[i].substring(1);
           params[paramName] = decodeURIComponent(pathParts[i]);
         } else if (routeParts[i] !== pathParts[i]) {
@@ -37,7 +45,7 @@ class Router {
   }
 
   navigate(path: string): void {
-    window.history.pushState({}, '', path);
+    window.history.pushState({}, "", path);
     this.handlePath(path);
   }
 
@@ -51,7 +59,7 @@ class Router {
   }
 
   start(): void {
-    window.addEventListener('popstate', () => {
+    window.addEventListener("popstate", () => {
       this.handlePath(window.location.pathname);
     });
     this.handlePath(window.location.pathname);

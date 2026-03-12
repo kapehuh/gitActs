@@ -15,7 +15,7 @@ const locationService = {
         },
         (error) => {
           reject(error);
-        }
+        },
       );
     });
   },

@@ -1,10 +1,10 @@
-import './styles/style.css'; // путь к CSS-файлу
-import Router from './core/router';
-import WeatherService from './services/weatherService';
-import locationService from './services/locationService';
-import storageService from './services/storageService';
-import SearchWidget from './components/SearchWidget';
-import CurrentWeatherWidget from './components/CurrentWeatherWidget';
+import "./styles/style.css"; // путь к CSS-файлу
+import Router from "./core/router";
+import WeatherService from "./services/weatherService";
+import locationService from "./services/locationService";
+import storageService from "./services/storageService";
+import SearchWidget from "./components/SearchWidget";
+import CurrentWeatherWidget from "./components/CurrentWeatherWidget";
 import { updateUI } from "./modules/ui";
 
 function initApp() {
@@ -15,25 +15,31 @@ function initApp() {
   const humidityEl = document.getElementById("humidity");
   const windSpeedEl = document.getElementById("wind-speed");
 
-  if (!cityNameEl || !currentTempEl || !feelsLikeEl || !humidityEl || !windSpeedEl) {
+  if (
+    !cityNameEl ||
+    !currentTempEl ||
+    !feelsLikeEl ||
+    !humidityEl ||
+    !windSpeedEl
+  ) {
     throw new Error("Critical DOM elements are missing");
   }
 
-  const weatherService = new WeatherService('85b882b62fd1ca76d52cf910a69a5296');
+  const weatherService = new WeatherService("85b882b62fd1ca76d52cf910a69a5296");
 
   const router = new Router();
 
   let searchWidget: SearchWidget;
   try {
     searchWidget = new SearchWidget({
-      formId: 'search-form',
-      inputId: 'search-input',
+      formId: "search-form",
+      inputId: "search-input",
       onSearch: (city: string) => {
         router.navigate(`/city/${encodeURIComponent(city)}`);
       },
     });
   } catch (error) {
-    console.error('Failed to initialize SearchWidget:', error);
+    console.error("Failed to initialize SearchWidget:", error);
     return;
   }
 
@@ -44,8 +50,6 @@ function initApp() {
     humidity: humidityEl,
     wind: windSpeedEl,
   });
-
-
 
   // загрузка погоды
   async function loadWeatherForCity(city: string): Promise<void> {
@@ -104,7 +108,9 @@ function initApp() {
         await loadWeatherForCoords(lat, lon);
       } catch (error) {
         console.warn("Geolocation failed:", error);
-        weatherWidget.showError("Could not get your location. Please search for a city.");
+        weatherWidget.showError(
+          "Could not get your location. Please search for a city.",
+        );
       }
     }
   });
@@ -126,12 +132,8 @@ function initApp() {
   router.start();
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initApp);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initApp);
 } else {
   initApp();
 }
-
-
-
-

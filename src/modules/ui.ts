@@ -1,4 +1,4 @@
-import { WeatherData } from '../types/weather';
+import { WeatherData } from "../types/weather";
 
 // interface WeatherData {
 //   name?: string;
@@ -26,7 +26,13 @@ const windSpeedEl = document.getElementById("wind-speed");
 export function updateUI(weatherData: WeatherData): void {
   if (!weatherData) return;
 
-  if (!cityNameEl || !currentTempEl || !feelsLikeEl || !humidityEl || !windSpeedEl) {
+  if (
+    !cityNameEl ||
+    !currentTempEl ||
+    !feelsLikeEl ||
+    !humidityEl ||
+    !windSpeedEl
+  ) {
     console.error("One or more DOM elements are missing");
     return;
   }

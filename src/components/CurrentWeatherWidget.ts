@@ -26,18 +26,20 @@ class CurrentWeatherWidget {
   update(weatherData: WeatherData): void {
     this.cityNameEl.textContent = weatherData.name || "Unknown";
     this.tempEl.textContent = Math.round(weatherData.main.temp).toString();
-    this.feelsLikeEl.textContent = Math.round(weatherData.main.feels_like).toString();
+    this.feelsLikeEl.textContent = Math.round(
+      weatherData.main.feels_like,
+    ).toString();
     this.humidityEl.textContent = weatherData.main.humidity.toString();
     const windSpeedKmh = weatherData.wind.speed;
     this.windEl.textContent = windSpeedKmh.toString();
   }
 
   showError(message: string): void {
-    this.cityNameEl.textContent = 'Error';
-    this.tempEl.textContent = '--';
-    this.feelsLikeEl.textContent = '--';
-    this.humidityEl.textContent = '--';
-    this.windEl.textContent = '--';
+    this.cityNameEl.textContent = "Error";
+    this.tempEl.textContent = "--";
+    this.feelsLikeEl.textContent = "--";
+    this.humidityEl.textContent = "--";
+    this.windEl.textContent = "--";
     console.error(message);
   }
 }

@@ -13,7 +13,6 @@ interface OpenWeatherResponse {
 const API_KEY = "85b882b62fd1ca76d52cf910a69a5296"; // .env
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
 
-
 class WeatherService {
   private apiKey: string;
   constructor(apiKey: string) {
@@ -30,7 +29,10 @@ class WeatherService {
     return this._transformCurrentWeather(data);
   }
 
-  async getCurrentWeatherByCoords(lat: number, lon: number): Promise<OpenWeatherResponse> {
+  async getCurrentWeatherByCoords(
+    lat: number,
+    lon: number,
+  ): Promise<OpenWeatherResponse> {
     const url = `${BASE_URL}/weather?lat=${lat}&lon=${lon}&units=metric&appid=${this.apiKey}`;
     const response = await fetch(url);
     if (!response.ok) {
