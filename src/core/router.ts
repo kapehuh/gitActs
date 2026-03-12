@@ -15,9 +15,7 @@ class Router {
     this.routes.push({ path, handler });
   }
 
-  private matchRoute(
-    path: string,
-  ): {
+  private matchRoute(path: string): {
     handler: (params: Record<string, string>) => void;
     params: Record<string, string>;
   } | null {
