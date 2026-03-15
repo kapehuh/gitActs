@@ -19,6 +19,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Type check
+        run: npm run type-check
+
       - name: Run all code checks (ESLint + Prettier)
         run: npm run prli:check
 

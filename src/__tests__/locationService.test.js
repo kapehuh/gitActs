@@ -4,10 +4,20 @@ describe("LocationService", () => {
   let geolocationMock;
 
   beforeEach(() => {
+    jest.resetAllMocks();
     geolocationMock = {
       getCurrentPosition: jest.fn(),
     };
-    global.navigator.geolocation = geolocationMock;
+    Object.defineProperty(global.navigator, "geolocation", {
+      value: geolocationMock,
+      configurable: true,
+      writable: true,
+    });
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    delete global.navigator.geolocation;
   });
 
   test("getCurrentPosition resolves with coordinates", async () => {
@@ -23,8 +33,11 @@ describe("LocationService", () => {
   });
 
   test("getCurrentPosition rejects on error", async () => {
-    geolocationMock.getCurrentPosition.mockImplementation((_, error) =>
-      error({ code: 1 }),
+    const error = new Error("Location access denied");
+    geolocationMock.getCurrentPosition.mockImplementation(
+      (success, errorCallback) => {
+        errorCallback(error);
+      },
     );
 
     await expect(locationService.getCurrentPosition()).rejects.toThrow(
